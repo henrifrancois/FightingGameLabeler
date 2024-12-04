@@ -4,43 +4,17 @@ export const DELETE = 'insert-rkey-of-delete-post-here';
 export const LABEL_LIMIT = 1;
 export const LABELS: Label[] = [
   {
-    rkey: 'insert-rkey-here',
-    identifier: 'earth',
+    rkey: '3lcgswmfzv722',
+    identifier: 'tekken8',
     locales: [
-      { lang: 'en', name: 'Earth 🌎', description: 'Earth'},
-      { lang: 'pt-BR', name: 'Terra 🌎', description: 'Terra'},
+      { lang: 'en', name: 'Tekken 8', description: 'Bandai Namco\' Tekken 8'},
     ]
   },
   {
-    rkey: 'insert-rkey-here',
-    identifier: 'fire',
+    rkey: '3lcgswminpg2u',
+    identifier: 'street-fighter6',
     locales: [
-      { lang: 'en', name: 'Fire 🔥', description: 'Fire'},
-      { lang: 'pt-BR', name: 'Fogo 🔥', description: 'Fogo'},
+      { lang: 'en', name: 'Street Fighter 6', description: 'Capcom\'s Street Fighter 6'},
     ]
-  },
-  {
-    rkey: 'insert-rkey-here',
-    identifier: 'air',
-    locales: [
-      { lang: 'en', name: 'Air 💨', description: 'Air'},
-      { lang: 'pt-BR', name: 'Ar 💨', description: 'Ar'},
-    ]
-  },
-  {
-    rkey: 'insert-rkey-here',
-    identifier: 'water',
-    locales: [
-      { lang: 'en', name: 'Water 💧', description: 'Water'},
-      { lang: 'pt-BR', name: 'Água 💧', description: 'Água'},
-    ]
-  },
-  {
-    rkey: 'insert-rkey-here',
-    identifier: 'love',
-    locales: [
-      { lang: 'en', name: 'Love 💞', description: 'Love'},
-      { lang: 'pt-BR', name: 'Amor 💞', description: 'Amor'},
-    ]
-  },
+  }
 ];
