@@ -1,6 +1,6 @@
 {
-  "name": "zodiacsigns-bsky",
-  "version": "1.0.0",
+  "name": "fgc-labeler",
+  "version": "0.0.1",
   "type": "module",
   "scripts": {
     "start": "npx tsx src/main.ts",
