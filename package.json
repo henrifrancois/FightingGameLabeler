@@ -31,7 +31,7 @@
     "@atproto/api": "^0.13.28",
     "@skyware/bot": "^0.3.8",
     "@skyware/jetstream": "^0.2.2",
-    "@skyware/labeler": "^0.1.13",
+    "@skyware/labeler": "^0.2.0",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "lint-staged": "^15.4.1",
