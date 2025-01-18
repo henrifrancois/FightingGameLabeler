@@ -15,27 +15,27 @@
     "*": "prettier --ignore-unknown --write"
   },
   "devDependencies": {
-    "@eslint/js": "^9.15.0",
+    "@eslint/js": "^9.18.0",
     "@trivago/prettier-plugin-sort-imports": "^4.3.0",
     "@types/better-sqlite3": "^7.6.12",
     "@types/eslint__js": "^8.42.3",
     "@types/express": "^4.17.21",
-    "@types/node": "^22.9.1",
-    "eslint": "^9.15.0",
-    "prettier": "^3.3.3",
+    "@types/node": "^22.10.7",
+    "eslint": "^9.18.0",
+    "prettier": "^3.4.2",
     "tsx": "^4.19.2",
-    "typescript": "^5.6.3",
-    "typescript-eslint": "^8.15.0"
+    "typescript": "^5.7.3",
+    "typescript-eslint": "^8.20.0"
   },
   "dependencies": {
-    "@atproto/api": "^0.13.16",
-    "@skyware/bot": "^0.3.7",
-    "@skyware/jetstream": "^0.2.0",
+    "@atproto/api": "^0.13.28",
+    "@skyware/bot": "^0.3.8",
+    "@skyware/jetstream": "^0.2.2",
     "@skyware/labeler": "^0.1.13",
-    "dotenv": "^16.4.5",
-    "express": "^4.21.1",
-    "lint-staged": "^15.2.10",
-    "pino": "^9.5.0",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "lint-staged": "^15.4.1",
+    "pino": "^9.6.0",
     "pino-pretty": "^13.0.0",
     "prom-client": "^15.1.3"
   }
