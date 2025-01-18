@@ -7,7 +7,7 @@ import logger from './logger.js';
 
 export const labelerServer = new LabelerServer({ did: DID, signingKey: SIGNING_KEY });
 
-export const label = (did: string, rkey: string) => {
+export const label = async (did: string, rkey: string) => {
   logger.info(`Received rkey: ${rkey} for ${did}`);
 
   if (rkey === 'self') {
@@ -15,7 +15,7 @@ export const label = (did: string, rkey: string) => {
     return;
   }
   try {
-    const labels = fetchCurrentLabels(did);
+    const labels = await fetchCurrentLabels(did);
 
     if (rkey.includes(DELETE)) {
       deleteAllLabels(did, labels);
@@ -27,16 +27,21 @@ export const label = (did: string, rkey: string) => {
   }
 };
 
-function fetchCurrentLabels(did: string) {
-  const query = labelerServer.db
-    .prepare<string[]>(`SELECT * FROM labels WHERE uri = ?`)
-    .all(did) as ComAtprotoLabelDefs.Label[];
-
-  const labels = query.reduce((set, label) => {
-    if (!label.neg) set.add(label.val);
-    else set.delete(label.val);
-    return set;
-  }, new Set<string>());
+async function fetchCurrentLabels(did: string) {
+  const query = await labelerServer.db
+    .execute({
+      sql: 'SELECT * FROM labels WHERE uri = ?',
+      args: [did]
+    })
+  const labels = query.rows.reduce((set, row) => {
+    if (row.val) {
+      if (!row.neg) set.add(row.val.toString());
+      else set.delete(row.val?.toString());
+      return set;
+    } else {
+      return new Set<string>()
+    }
+  }, new Set<string>())
 
   if (labels.size > 0) {
     logger.info(`Current labels: ${Array.from(labels).join(', ')}`);
