@@ -1,13 +1,20 @@
 import { CommitCreateEvent, Jetstream } from '@skyware/jetstream';
+import { Bot, Post } from '@skyware/bot';
 import fs from 'node:fs';
 
-import { CURSOR_UPDATE_INTERVAL, DID, FIREHOSE_URL, HOST, METRICS_PORT, PORT, WANTED_COLLECTION } from './config.js';
-import { label, labelerServer } from './label.js';
+import { CURSOR_UPDATE_INTERVAL, DID, FIREHOSE_URL, HOST, METRICS_PORT, PORT, WANTED_COLLECTION, BSKY_IDENTIFIER, BSKY_PASSWORD } from './config.js';
+import { label, labelerServer } from './labeler.js';
 import logger from './logger.js';
 import { startMetricsServer } from './metrics.js';
+import { LABELS } from './constants.js';
 
 let cursor = 0;
 let cursorUpdateInterval: NodeJS.Timeout;
+const bot = new Bot();
+await bot.login({
+  identifier: BSKY_IDENTIFIER,
+  password: BSKY_PASSWORD,
+});
 
 function epochUsToDateTime(cursor: number): string {
   return new Date(cursor / 1000).toISOString();
@@ -71,6 +78,15 @@ labelerServer.app.listen({ port: PORT, host: HOST }, (error, address) => {
     logger.error('Error starting server: %s', error);
   } else {
     logger.info(`Labeler server listening on ${address}`);
+  }
+});
+
+bot.on("like", async ({ subject, user }) => {
+  if (subject instanceof Post) {
+    const label = LABELS.find((label) => label.rkey === subject.uri.split('/').pop());
+    if (label) {
+      await user.labelProfile([label.identifier])
+    }
   }
 });
 
