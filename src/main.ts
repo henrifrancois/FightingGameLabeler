@@ -4,6 +4,7 @@ import { HOST, PORT, BSKY_IDENTIFIER, BSKY_PASSWORD } from './config.js';
 import { labelerServer } from './labeler.js';
 import logger from './logger.js';
 import { DELETE, LABELS } from './constants.js';
+import { isModEventLabel } from '@atproto/api/dist/client/types/tools/ozone/moderation/defs.js';
 
 const bot = new Bot();
 await bot.login({
@@ -31,7 +32,8 @@ bot.on("like", async ({ subject, user }) => {
         const label = LABELS.find((label) => label.rkey === subject.uri.split('/').pop());
         if (label) {
           logger.info(`User ${user.did} liked post ${subject.uri}, labeling with ${label.identifier}`);
-          await user.labelProfile([label.identifier])
+          const labelAction = await user.labelProfile([label.identifier])
+          logger.info(`Event recorded: ${isModEventLabel(labelAction.event) ? "label applied" : "nothing happened"}`);
         }
         break;
     }
