@@ -1,4 +1,4 @@
-import { Bot, Post } from '@skyware/bot';
+import { Bot, EventStrategy, Labeler, Post } from '@skyware/bot';
 
 import { HOST, PORT, BSKY_IDENTIFIER, BSKY_PASSWORD } from './config.js';
 import { labelerServer } from './labeler.js';
@@ -6,7 +6,11 @@ import logger from './logger.js';
 import { DELETE, LABELS } from './constants.js';
 import { isModEventLabel } from '@atproto/api/dist/client/types/tools/ozone/moderation/defs.js';
 
-const bot = new Bot();
+const bot = new Bot({
+  eventEmitterOptions: {
+    strategy: EventStrategy.Jetstream
+  }
+});
 await bot.login({
   identifier: BSKY_IDENTIFIER,
   password: BSKY_PASSWORD,
@@ -34,9 +38,13 @@ bot.on("like", async ({ subject, user }) => {
           logger.info(`User ${user.did} liked post ${subject.uri}, labeling with ${label.identifier}`);
           const labelAction = await user.labelProfile([label.identifier])
           logger.info(`Event recorded: ${isModEventLabel(labelAction.event) ? "label applied" : "nothing happened"}`);
+        } else {
+          logger.error("no label corresponds to the post the user liked.");
         }
         break;
     }
+  } else if (subject instanceof Labeler) {
+    logger.info("user " + user.did + " followed the labeler.");
   }
 });
 
