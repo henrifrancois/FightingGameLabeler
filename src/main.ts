@@ -6,11 +6,7 @@ import logger from './logger.js';
 import { DELETE, LABELS } from './constants.js';
 import { isModEventLabel } from '@atproto/api/dist/client/types/tools/ozone/moderation/defs.js';
 
-const bot = new Bot({
-  eventEmitterOptions: {
-    strategy: EventStrategy.Jetstream
-  }
-});
+const bot = new Bot();
 await bot.login({
   identifier: BSKY_IDENTIFIER,
   password: BSKY_PASSWORD,
